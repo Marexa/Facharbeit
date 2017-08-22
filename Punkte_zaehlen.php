@@ -17,7 +17,7 @@ if(isset($_POST['mannschaft'],$_POST['value'])){
     $mannschaft = $_POST['mannschaft'];
     $value = $_POST['value'];
     if(!empty($mannschaft) && !empty($value)){
-        updateDatabase($mannschaft, $value,$connection);
+        updateDatabase($mannschaft, $value);
     }
 }
 mysqli_close($connection);
