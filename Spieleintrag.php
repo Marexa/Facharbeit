@@ -3,10 +3,10 @@ $connection = mysqli_connect ("localhost", "root", "123456", "Test" )
 or die ("keine Verbindung möglich. Benutzername oder Passwort sind falsch");
 
 
-if(isset($_POST['Kategorie'])){
-	$Kategorie = $_POST['Kategorie'];
-	$Kategorie1 = $Kategorie."_data";
-	$sql = "SELECT * FROM $Kategorie1";
+if(isset($_POST['Sportart'])){
+	$Sportart = $_POST['Sportart'];
+	$Sportart1 = $Sportart."_data";
+	$sql = "SELECT * FROM $Sportart1";
 	$result = mysqli_query($connection, $sql);
 	if($result == ""){
 		echo "Fehler";
