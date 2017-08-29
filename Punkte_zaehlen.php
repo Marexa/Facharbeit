@@ -1,4 +1,5 @@
 <?php
+//Torverhältnis integrieren
 function updatePunkte($Mannschaft, $Punkte, $Sportart1){
 	global $connection;
 	global $json;
