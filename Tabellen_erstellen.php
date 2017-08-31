@@ -18,7 +18,7 @@ if(!empty($sportartPlatzierung)){
     $json["error"] = "Keine Tabellenname angegeben";
 }
 
-$sportartData = array("Volleyball_Data", "Fußball_Data","Basketball_Data","Badminton_Data","Hockey_Data")
+$sportartData = array("Volleyball_spielplan", "Fußball_spielplan","Basketball_spielplan","Badminton_spielplan","Hockey_spielplan");
 if(!empty($sportartData)){
     for($i=0; $i<count($sportartData);$i++){
 		$sql = "CREATE TABLE $sportartData[$i] (Spiel_ID int Auto_Increment, Uhrzeit VARCHAR(20), Halle int, Mannschaft1 VARCHAR(10), Mannschaft2 VARCHAR(10), Ergebnis VARCHAR(10) DEFAULT'-',
