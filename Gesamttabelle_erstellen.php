@@ -3,7 +3,7 @@ $connection = mysqli_connect ("localhost", "root", "123456", "Test" )
 or die ("keine Verbindung möglich. Benutzername oder Passwort sind falsch");
 
 
-$sportartPlatzierung = array("fußball_platzierung","volleyball_platzierung"//,"basketball_platzierung","badminton_platzierung","hockey_platzierung"
+$sportartPlatzierung = array("fußball_platzierung","volleyball_platzierung",//"basketball_platzierung","badminton_platzierung","hockey_platzierung"
 );
 $sql = "SELECT Mannschaft FROM gesamt_platzierung";
 $result = mysqli_query($connection, $sql);
