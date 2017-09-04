@@ -1,6 +1,6 @@
 <?php
-
-function torverhaeltnisEintragen ($Sportart1, $Mannschaft, $ToreTeam1, $ToreTeam2 ){
+//Dieses Skript ermittelt den Gewinner, rechnet die Punkte und das Toreverhältnis zusammen und trägt diese Daten dann in der Datenbamk ein
+function torverhaeltnisEintragen ($Sportart1, $Mannschaft, $ToreTeam1, $ToreTeam2 ){//Funktion torverhaeltnisEintragen rechnet und aktualisiert das Toreverhältnis
 global $connection;
 $sql= "SELECT Torverhaeltnis FROM $Sportart1 WHERE Mannschaft = '$Mannschaft'";
 $result = mysqli_query($connection, $sql);
@@ -75,7 +75,7 @@ if(isset($_POST['sport'],$_POST['m1'],$_POST['m2'] ,$_POST['t1'],$_POST['t2'],$_
 	$ToreTeam2 = $_POST ['t2'];
 	$Spiel_ID = $_POST ['spielId'];
 	$Sportart1 = $Sportart."_platzierung";
-    if(!empty($Sportart) && !empty($Mannschaft1) && !empty($ToreTeam1) && !empty($ToreTeam2) && !empty($Mannschaft1)){
+    if(!empty($Sportart) && !empty($Mannschaft1) && !empty($ToreTeam1) && !empty($ToreTeam2) && !empty($Mannschaft1) && !empty($Spiel_ID)){
        updateDatabase($Sportart1, $Mannschaft1, $ToreTeam1, $ToreTeam2, $Mannschaft2);
 		$Sportart2 = $Sportart."_spielplan";
 		$Ergebnis = $ToreTeam1.":".$ToreTeam2;
