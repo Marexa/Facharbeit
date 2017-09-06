@@ -4,9 +4,8 @@ $connection = mysqli_connect(hostname, username, password, db_name)or die("Could
 
 
 $sportartPlatzierung = array("Volleyball_platzierung","Fußball_platzierung","Basketball_platzierung","Badminton_platzierung","Hockey_platzierung","Gesamt_platzierung");//array mit Namen für Tabellen
-echo "$sportartPlatzierung";
 for($i=0; $i<count($sportartPlatzierung);$i++){//for-Schleife durchläuft den Array
-	$sql = "CREATE TABLE $sportartPlatzierung[$i] (mannschaft VARCHAR(20), punkte int, torverhaeltnis VARCHAR(15))";
+	$sql = "CREATE TABLE $sportartPlatzierung[$i] (mannschaft VARCHAR(20), punkte int, torverhaeltnis VARCHAR(15), gruppe Character)";
 	$result = mysqli_query($connection, $sql);
 	if ($result == 1){
           $json['success'] = 'Tabelle wurde erstellt';
