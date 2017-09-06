@@ -15,3 +15,4 @@ while($row = mysqli_fetch_array($result)){
 echo json_encode($response);
 
 ?>
+DROP TABLE Volleyball_platzierung, Fußball_platzierung, Basketball_platzierung, badminton_platzierung, hockey_platzierung, volleyball_spielplan, fußball_spielplan, basketball_spielplan, badminton_spielplan, hockey_spielplan, sportarten, mannschaft, user;

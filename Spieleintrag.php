@@ -1,10 +1,10 @@
 <?php
-$connection = mysqli_connect ("localhost", "root", "123456", "Test" )
-or die ("keine Verbindung möglich. Benutzername oder Passwort sind falsch");
+require_once 'Verbindung_herstellen.php';
+$connection = mysqli_connect(hostname, username, password, db_name)or die("Could not connect to db");
 
 
-if(isset($_POST['Sportart'])){
-	$Sportart = $_POST['Sportart'];
+if(isset($_POST['sport'])){
+	$Sportart = $_POST['sport'];
 	$Sportart1 = $Sportart."_spielplan";
 	$sql = "SELECT * FROM $Sportart1";
 	$result = mysqli_query($connection, $sql);

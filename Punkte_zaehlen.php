@@ -2,7 +2,7 @@
 //Dieses Skript ermittelt den Gewinner, rechnet die Punkte und das Toreverhältnis zusammen und trägt diese Daten dann in der Datenbamk ein
 function torverhaeltnisEintragen ($Sportart1, $Mannschaft, $ToreTeam1, $ToreTeam2 ){//Funktion torverhaeltnisEintragen rechnet und aktualisiert das Toreverhältnis
 global $connection;
-$sql= "SELECT Torverhaeltnis FROM $Sportart1 WHERE Mannschaft = '$Mannschaft'";
+$sql= "SELECT Torverhaeltnis FROM $Sportart1 WHERE Mannschaft = '$Mannschaft'";//
 $result = mysqli_query($connection, $sql);
 $torverhaeltnis = mysqli_fetch_array($result);
 list($tore3,$tore4) = explode(':',$torverhaeltnis[0]);
@@ -27,36 +27,45 @@ function updatePunkte($Mannschaft, $Punkte, $Sportart1){
 	$result = mysqli_query($connection, $sql);
 	$row = mysqli_fetch_assoc($result);
 	$punkte = $row["Punkte"]+ $Punkte;
-	if($row["Punkte"]==""){
+	$sql = "UPDATE $Sportart1 SET Punkte = $punkte WHERE Mannschaft = '$Mannschaft'";
+	$result = mysqli_query($connection, $sql);
+	if($result==""){
 		$json["error"] = "Punkte wurden nicht aktualisiert";
 		echo json_encode($json);
 	}else{
 		$json["success"] = "Punkte wurden aktualisiert";
 		echo json_encode($json);
 	}
-	$sql = "UPDATE $Sportart1 SET Punkte = $punkte WHERE Mannschaft = '$Mannschaft'";
-	$result = mysqli_query($connection, $sql);
 }
 
 function updateDatabase($Sportart1, $Mannschaft1, $ToreTeam1, $ToreTeam2, $Mannschaft2){
-	$Mannschaft=$Mannschaft1;
-	torverhaeltnisEintragen($Sportart1, $Mannschaft1, $ToreTeam1, $ToreTeam2 );
-	$Mannschaft = $Mannschaft2;
-	torverhaeltnisEintragen($Sportart1, $Mannschaft2, $ToreTeam1, $ToreTeam2 );
 	
 	if ($ToreTeam1<$ToreTeam2){
 		$Punkte = 3;
 		updatePunkte($Mannschaft2, $Punkte, $Sportart1);
-		
+		torverhaeltnisEintragen($Sportart1, $Mannschaft1, $ToreTeam1, $ToreTeam2 );
+		$tor1 = $ToreTeam2;
+		$tor2 = $ToreTeam1;
+		$ToreTeam1 = $tor1;
+		$ToreTeam2 = $tor2;
+		torverhaeltnisEintragen($Sportart1, $Mannschaft2, $ToreTeam1, $ToreTeam2 );
 	}
 	elseif ($ToreTeam1>$ToreTeam2){
 		$Punkte = 3;
 		updatePunkte($Mannschaft1, $Punkte, $Sportart1);
+		torverhaeltnisEintragen($Sportart1, $Mannschaft1, $ToreTeam1, $ToreTeam2 );
+		$tor1 = $ToreTeam2;
+		$tor2 = $ToreTeam1;
+		$ToreTeam1 = $tor1;
+		$ToreTeam2 = $tor2;
+		torverhaeltnisEintragen($Sportart1, $Mannschaft2, $ToreTeam1, $ToreTeam2 );
 	}
 	elseif($ToreTeam1==$ToreTeam2){
 		$Punkte = 1;
 		updatePunkte($Mannschaft1, $Punkte, $Sportart1);
 		updatePunkte($Mannschaft2, $Punkte, $Sportart1);
+		torverhaeltnisEintragen($Sportart1, $Mannschaft1, $ToreTeam1, $ToreTeam2 );
+		torverhaeltnisEintragen($Sportart1, $Mannschaft2, $ToreTeam1, $ToreTeam2 );
 		
 	}		
 	else{
@@ -66,7 +75,8 @@ function updateDatabase($Sportart1, $Mannschaft1, $ToreTeam1, $ToreTeam2, $Manns
 }
 
 
-$connection =  mysqli_connect ("localhost", "root", "123456", "test" ) or die ("keine Verbindung möglich. Benutzername oder Passwort sind falsch");
+require_once 'Verbindung_herstellen.php';
+$connection = mysqli_connect(hostname, username, password, db_name)or die("Could not connect to db");
 if(isset($_POST['sport'],$_POST['m1'],$_POST['m2'] ,$_POST['t1'],$_POST['t2'],$_POST['spielId'])){
     $Sportart = $_POST['sport'];
     $Mannschaft1 = $_POST['m1'];
